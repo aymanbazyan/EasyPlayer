@@ -1,0 +1,13 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == 380 {
+    @media only screen and (max-width: 23.75em) {
+      @content;
+    }
+  }
+}
+
+html {
+  @include respond(380) {
+    font-size: 50%;
+  }
+}
