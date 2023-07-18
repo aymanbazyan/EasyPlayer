@@ -38,6 +38,15 @@ body {
   border-radius: 10px;
   position: relative;
 }
+.radio__bookmark-btn {
+  font-size: 2rem;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.8rem;
+  cursor: pointer;
+}
 .radio__inner_1 {
   width: 100%;
   height: 80%;
@@ -45,7 +54,7 @@ body {
   border-radius: inherit;
   padding-top: 1rem;
 }
-.radio__inner_1-box {
+.radio__inner_1-header {
   color: #fff;
   background-color: #cacaca;
   border-radius: 60px;
@@ -53,14 +62,16 @@ body {
   display: flex;
   justify-content: space-between;
 }
-.radio__inner_1-box-spinner {
+.radio__inner_1-header-spinner {
   font-size: 5rem;
+  color: #fff;
   padding: 0 2rem;
+  z-index: 1;
   display: flex;
   align-items: center;
   position: relative;
 }
-.radio__inner_1-box-spinner::before {
+.radio__inner_1-header-spinner::before {
   content: "";
   position: absolute;
   width: 5.6rem;
@@ -70,11 +81,27 @@ body {
   border-radius: 50%;
   top: 50%;
   left: 50%;
+  z-index: -1;
   transform: translate(-50%, -50%);
 }
-.radio__inner_1-box-title {
+.radio__inner_1-header-title {
   color: #333;
   align-self: center;
+}
+.radio__inner_1-buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.radio__inner_1-buttons button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.radio__inner_1-buttons :nth-child(2) {
+  font-size: 3rem;
 }
 .radio__inner_2 {
   color: #fff;
@@ -111,4 +138,30 @@ body {
 }
 .radio__inner_2 .right-side-1 {
   order: 2;
+}
+.radio__inner_2 .middle {
+  display: grid;
+  justify-items: center;
+}
+.radio__inner_2 .middle__video-length {
+  display: flex;
+}
+.radio__inner_2 .middle__video-length p {
+  font-size: 1.4rem;
+}
+.radio__inner_2 .middle #progress {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  background-color: rgb(169, 201, 222);
+  border-radius: 20px;
+}
+.radio__inner_2 .middle #progress::-webkit-slider-thumb, .radio__inner_2 .middle #progress::-moz-range-thumb {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(61, 161, 227);
 }

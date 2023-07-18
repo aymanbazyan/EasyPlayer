@@ -9,34 +9,56 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="shortcut icon" href="content/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="src/styles/main.css">
+    <script src="https://kit.fontawesome.com/115a1d12a9.js" crossorigin="anonymous"></script>
     <script defer type="module" src="src/scripts/controller.js"></script>
     <title>Easy Player</title>
 </head>
 
 <body>
-
-
     <!-- Radio -->
     <div class="radio container">
-
+        <div class="radio__bookmark-btn">
+            <i class="fa-regular fa-bookmark"></i>
+            <!-- <i class="fa-solid fa-bookmark"></i> -->
+        </div>
         <div class="radio__inner_1">
-            <div class="radio__inner_1-box">
-                <div class="radio__inner_1-box-spinner">
-                    <i class="fa fa-cog fa-spin left_w"></i>
+            <div class="radio__inner_1-header">
+                <div class="radio__inner_1-header-spinner">
+                    <i class="spinner fa-solid fa-gear"></i>
+                    <!-- <i class="fa-solid fa-gear fa-spin"></i> -->
                 </div>
-                <h1 class="radio__inner_1-box-title">Al-fajr</h1>
-                <div class="radio__inner_1-box-spinner">
-                    <i class="fa fa-cog fa-spin right_w"></i>
+                <h1 class="radio__inner_1-header-title">Al-fajr</h1>
+                <div class="radio__inner_1-header-spinner">
+                    <i class="spinner fa-solid fa-gear"></i>
+                    <!-- <i class="fa-solid fa-gear fa-spin"></i> -->
                 </div>
             </div>
+            <div class="radio__inner_1-buttons">
+                <button>
+                    <i class="fa-solid fa-backward"></i>
+                </button>
+                <button>
+                    <i class="playpause fa-solid fa-play"></i>
+                    <!-- <i class="fa-solid fa-pause"></i> -->
+                </button>
+                <button>
+                    <i class="fa-solid fa-forward"></i>
+                </button>
+            </div>
         </div>
-
-
         <div class="radio__inner_2">
             <div class="left-side">
                 <div class="left-side-1"></div>
                 <div class="left-side-2"></div>
+            </div>
+            <div class="middle">
+                <div class="middle__video-length">
+                    <p>03:51/</p>
+                    <p>00:00</p>
+                </div>
+                <input type="range" value="0" id="progress" min="0" max="100">
             </div>
             <div class="right-side">
                 <div class="right-side-1"></div>
@@ -44,12 +66,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="container stations">
-        <div class="stations__station">
-        </div>
-    </div> -->
-
 </body>
 
 </html>
