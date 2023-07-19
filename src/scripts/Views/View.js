@@ -1,19 +1,32 @@
 class View {
-  playpauseBtn = document.querySelector(".playpause");
-  spinners = document.querySelectorAll(".spinner");
+  _playpauseBtn = document.querySelector(".playpause");
+  _spinners = document.querySelectorAll(".spinner");
+  _addToBookmark = document.querySelector(".radio__bookmark-btn");
 
-  togglePlayBtn() {
-    this.playpauseBtn.classList.toggle("fa-play");
-    this.playpauseBtn.classList.toggle("fa-pause");
+  _togglePlayBtn() {
+    this._playpauseBtn.classList.toggle("fa-play");
+    this._playpauseBtn.classList.toggle("fa-pause");
 
-    this.spinners.forEach((spinner) => {
+    this._spinners.forEach((spinner) => {
       spinner.classList.toggle("fa-spin");
     });
   }
 
+  _toogleAddToBookmark() {
+    this._addToBookmark.classList.toggle("fa-regular");
+    this._addToBookmark.classList.toggle("fa-solid");
+  }
+
+  addToBookmarksHandler(handler) {
+    this._addToBookmark.addEventListener("click", () => {
+      this._toogleAddToBookmark();
+      //   handler();
+    });
+  }
+
   playBtnHandler(handler) {
-    this.playpauseBtn.addEventListener("click", () => {
-      this.togglePlayBtn();
+    this._playpauseBtn.addEventListener("click", () => {
+      this._togglePlayBtn();
       //   handler();
     });
   }

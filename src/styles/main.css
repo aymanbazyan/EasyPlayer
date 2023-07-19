@@ -154,6 +154,8 @@ body {
   font-size: 1.4rem;
 }
 .radio__inner_2 .middle #progress {
+  -moz-appearance: none;
+       appearance: none;
   -webkit-appearance: none;
   width: 100%;
   height: 5px;

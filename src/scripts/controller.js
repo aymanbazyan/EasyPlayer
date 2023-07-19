@@ -5,7 +5,12 @@ const controlTogglePlaying = function () {
   //   console.log("tm");
 };
 
+const controlToggleAddToBookmarks = function () {
+  //   console.log("tm");
+};
+
 const init = function () {
   View.playBtnHandler(controlTogglePlaying);
+  View.addToBookmarksHandler(controlToggleAddToBookmarks);
 };
 init();
