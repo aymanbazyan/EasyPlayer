@@ -100,6 +100,10 @@ body {
   border: none;
   cursor: pointer;
 }
+.radio__inner_1-buttons button .playpause {
+  width: 1.8rem;
+  height: 1.8rem;
+}
 .radio__inner_1-buttons :nth-child(2) {
   font-size: 3rem;
 }
