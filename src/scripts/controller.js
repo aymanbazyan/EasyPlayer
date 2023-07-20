@@ -13,4 +13,5 @@ const init = function () {
   View.playBtnHandler(controlTogglePlaying);
   View.addToBookmarksHandler(controlToggleAddToBookmarks);
 };
-init();
+
+document.addEventListener("DOMContentLoaded", init);
