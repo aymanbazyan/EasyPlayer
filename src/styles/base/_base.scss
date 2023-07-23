@@ -1,3 +1,11 @@
+$body-color: #4c8077;
+
+$player-color-inner: gold;
+$player-color: #333;
+
+$cassette-color-primary: #231f23;
+$cassette-color-secondary: #e9802f;
+
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +23,7 @@ html {
 }
 
 body {
-  background-color: #777;
+  background-color: $body-color;
   font-family: "Cairo", sans-serif;
 }
 

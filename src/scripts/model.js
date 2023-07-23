@@ -1,22 +1,14 @@
 import { getJSON } from "./helpers.js";
+import { stations } from "./stations.js";
 
-const links = [
-  { name: "Al-fajr", link: "https://alfaj.re/api/station/1", live: true },
-  {
-    name: "Al-Quran",
-    link: "",
-  },
-];
-
-const getAudio = async function (stationName) {
+const getAudio = async function (station) {
   try {
-    const stationObj = links.find((link) => link.name === stationName);
+    const stationLink = station.audios[0];
 
-    const data = await getJSON(stationObj.link);
+    const data = await getJSON(stationLink);
 
     console.log(data);
   } catch (err) {
     console.log(err);
   }
 };
-// getAudio("Al-Quran");

@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background-color: #777;
+  background-color: #4c8077;
   font-family: "Cairo", sans-serif;
 }
 
@@ -87,6 +87,8 @@ body {
 .radio__inner_1-header-title {
   color: #333;
   align-self: center;
+  text-align: center;
+  line-height: 1.2;
 }
 .radio__inner_1-buttons {
   margin-top: 1rem;
@@ -172,36 +174,227 @@ body {
   background-color: rgb(61, 161, 227);
 }
 
-/*
-// Base styles
-.stations {
+.cassettes {
+  width: 100%;
   margin-top: 2rem;
+  padding: 0 5rem;
+  list-style: none;
   display: flex;
-  gap: 1rem;
-
-  &__station {
-    width: fit-content;
-    padding: 2rem;
-    cursor: pointer;
-
-    transition: all 0.2s;
-    &:hover {
-      transform: translateY(-5px);
-    }
-
-    &-image {
-      width: 20rem;
-      height: 20rem;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-    }
-
-    &-title {
-      font-size: 2rem;
-      color: #333;
-      text-align: center;
-    }
-  }
+  gap: 5rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-*/
+
+.cassette-selected {
+  filter: none !important;
+  transform: scale(1.03) !important;
+}
+
+.cassette {
+  width: 25rem;
+  height: 15rem;
+  z-index: 2;
+  border-radius: 0.5rem;
+  background: #231f23;
+  cursor: pointer;
+  filter: grayscale(0.5);
+  transition: all 0.2s;
+  position: relative;
+}
+.cassette:hover {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+.cassette:active {
+  transform: scale(1.02);
+}
+.cassette:before, .cassette:after {
+  content: "";
+  position: absolute;
+  background: #8b8681;
+  color: #231f23;
+  border-radius: 100%;
+  width: 0.5rem;
+  height: 0.5rem;
+  left: 0.5rem;
+}
+.cassette:before {
+  top: 1rem;
+}
+.cassette:after {
+  bottom: 1rem;
+}
+
+.cassette__label {
+  height: 65%;
+  position: relative;
+  width: auto;
+  background: linear-gradient(#faedda 50%, #e9802f 50%);
+  margin: 1.5rem;
+  left: 0;
+  border-radius: 0.5rem;
+}
+.cassette__label:before, .cassette__label:after {
+  content: "";
+  position: absolute;
+  background: #8b8681;
+  color: #231f23;
+  border-radius: 100%;
+  width: 0.5rem;
+  height: 0.5rem;
+  right: -1rem;
+}
+.cassette__label:before {
+  top: -0.5rem;
+}
+.cassette__label:after {
+  bottom: -2.5rem;
+}
+
+.cassette__details {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem;
+}
+
+.cassette__side {
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  margin-top: 0.5rem;
+}
+
+.cassette__info {
+  width: 85%;
+  margin-left: auto;
+}
+
+.cassette__lines {
+  height: 0.1rem;
+  background: #a69ba6;
+  margin-top: 2rem;
+  position: relative;
+}
+.cassette__lines:before, .cassette__lines:after {
+  content: "";
+  height: 0.1rem;
+  width: 100%;
+  background: #a69ba6;
+  position: absolute;
+}
+.cassette__lines:before {
+  top: -1rem;
+}
+.cassette__lines:after {
+  top: 1rem;
+}
+
+.cassette__block {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.cassette__block-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  font-family: "Gochi Hand", cursive;
+  font-weight: 400;
+}
+
+.cassette__spool {
+  width: 85%;
+  background: #231f23;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1.8rem;
+}
+
+.cassette__circle {
+  border-radius: 100%;
+  background: #8b8681;
+  width: 2.8rem;
+  height: 2.8rem;
+  position: relative;
+}
+.cassette__circle:before {
+  content: "";
+  border-radius: 100%;
+  background: #fff;
+  width: 2.2rem;
+  height: 2.2rem;
+  position: absolute;
+  left: 0.3rem;
+  top: 0.3rem;
+}
+
+.cassette__wire {
+  background: #fff;
+  width: 4rem;
+  border-radius: 0.1rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+.cassette__wire img {
+  width: 100%;
+  height: 4rem;
+  transform: scale(1.4);
+}
+
+.cassette__mechanics {
+  width: 60%;
+  border: 0.1rem solid #8b8681;
+  height: 3rem;
+  border-bottom: none;
+  margin: 0 auto;
+  position: relative;
+  bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.live {
+  position: relative;
+}
+.live::after {
+  content: "LIVE";
+  color: #fff;
+  font-size: 1.8rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.cassette__tuning {
+  border-radius: 100%;
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  position: relative;
+  margin-bottom: -0.5rem;
+}
+.cassette__tuning:before {
+  content: "";
+  width: 0.6rem;
+  height: 0.5rem;
+  background: #fff;
+  position: absolute;
+}
+.cassette__tuning:before {
+  left: 2rem;
+  border-radius: 0.1rem;
+}
+.cassette__tuning:nth-child(2) {
+  transform: rotate(180deg);
+}
+.cassette__tuning:nth-child(2):before {
+  bottom: 0;
+}
