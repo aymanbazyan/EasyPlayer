@@ -1,12 +1,25 @@
 import * as model from "./model.js";
-import { stations } from "./stations.js";
-// import View from "./Views/View.js";
+import { stations, updateDuration } from "./stations.js";
 import PlayerView from "./Views/playerView.js";
 import CassetteView from "./Views/cassetteView.js";
 import playerView from "./Views/playerView.js";
+import ListView from "./Views/ListView.js";
 
 const controlTogglePlaying = function () {
-  PlayerView.togglePlayBtn();
+  if (model.state.curAudio) PlayerView.togglePlayBtn();
+
+  if (model.state.curAudio && !model.state.curTabe.live) model.toggleAudio();
+
+  if (model.state.curTabe?.live && model.state.playing) {
+    model.state.audioElement.pause();
+    model.state.playing = false;
+  } else if (
+    !model.state.playing &&
+    model.state.curAudio?.duration === "live"
+  ) {
+    model.state.audioElement.play();
+    model.state.playing = true;
+  }
 };
 
 const controlAddToBookmarks = function () {
@@ -14,29 +27,73 @@ const controlAddToBookmarks = function () {
 };
 
 const controlRenderCassettes = function () {
-  CassetteView.cassettesRender(stations);
+  CassetteView.render(stations);
 };
 
-const controlStartCassette = function (el, selected, live) {
-  PlayerView.editPlayerTitle(el);
-  console.log(selected, live);
+const controlStartCassette = function (el, selected, live, title) {
+  const stationObj = stations.find((obj) => obj.name === title);
+  model.state.curTabe = stationObj;
+
+  ListView.updateTitle(model.state.curTabe.name);
 
   if (selected && live) {
     playerView.togglePlayBtn();
-  } else if (live) {
+    model.toggleAudio();
+  } else if (live && model.state.curTabe?.live) {
     playerView.startPlayBtn();
-  } else {
+    PlayerView.updateTitle(model.state.curTabe.name);
+    ListView.clear();
+
+    if (model.state.curAudio?.selected) model.state.curAudio.selected = false;
+    model.state.curAudio = model.state.curTabe.audios[0];
+    model.state.playing = false;
+    if (model.state.audioElement) model.state.audioElement.pause();
+    model.toggleAudio();
+  } else if (!model.state.playing) {
     playerView.stopPlayBtn();
   }
 
   CassetteView.giveCassetteSelector(el);
+
+  if (!live && !selected) ListView.openList();
+
+  if (!live && selected) ListView.toggleList();
+
+  if (!live) ListView.render(model.state.curTabe.audios);
+
+  ListView.updateListItemsSelector();
+};
+
+const controlList = function (hdr) {
+  ListView.toggleList(hdr);
+};
+
+const controlListItems = function (curItem) {
+  model.state.curListItem = curItem;
+  if (model.state.curAudio?.selected) model.state.curAudio.selected = false;
+
+  model.state.curAudio = model.state.curTabe.audios.find(
+    (audio) => audio.name === curItem.id
+  );
+
+  if (!model.state.curTabe.live)
+    model.state.curAudio.selected = !model.state.curAudio.selected;
+
+  ListView.updatePlayPauseIcon(curItem);
+
+  PlayerView.updateTitle(model.state.curTabe.name);
+  model.toggleAudio();
+  model.state.playing ? playerView.startPlayBtn() : playerView.stopPlayBtn();
 };
 
 const init = function () {
+  updateDuration();
   controlRenderCassettes();
   PlayerView.playBtnHandler(controlTogglePlaying);
   PlayerView.addToBookmarksHandler(controlAddToBookmarks);
   CassetteView.startCassetteHandler(controlStartCassette);
+  ListView.listHeaderHandler(controlList);
+  ListView.listItemsHandler(controlListItems);
 };
 
 document.addEventListener("DOMContentLoaded", init);

@@ -50,8 +50,7 @@ class PlayerView extends View {
     });
   }
 
-  editPlayerTitle(el) {
-    const title = el.querySelector(".cassette__block-title").textContent.trim();
+  updateTitle(title) {
     this._playerTitle.innerHTML = title;
   }
 }

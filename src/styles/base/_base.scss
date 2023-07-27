@@ -6,6 +6,8 @@ $player-color: #333;
 $cassette-color-primary: #231f23;
 $cassette-color-secondary: #e9802f;
 
+$color-red: rgb(255, 0, 0);
+
 * {
   margin: 0;
   padding: 0;
@@ -29,4 +31,10 @@ body {
 
 .container {
   margin: 0 auto;
+}
+
+button {
+  color: inherit;
+  background: none;
+  border: none;
 }
