@@ -2,8 +2,7 @@ import * as model from "./model.js";
 import { stations, updateDuration } from "./stations.js";
 import PlayerView from "./Views/playerView.js";
 import CassetteView from "./Views/cassetteView.js";
-import playerView from "./Views/playerView.js";
-import ListView from "./Views/ListView.js";
+import ListView from "./Views/listView.js";
 
 const controlTogglePlaying = function () {
   if (model.state.curAudio) PlayerView.togglePlayBtn();
@@ -37,10 +36,10 @@ const controlStartCassette = function (el, selected, live, title) {
   ListView.updateTitle(model.state.curTabe.name);
 
   if (selected && live) {
-    playerView.togglePlayBtn();
+    PlayerView.togglePlayBtn();
     model.toggleAudio();
   } else if (live && model.state.curTabe?.live) {
-    playerView.startPlayBtn();
+    PlayerView.startPlayBtn();
     PlayerView.updateTitle(model.state.curTabe.name);
     ListView.clear();
 
@@ -50,7 +49,7 @@ const controlStartCassette = function (el, selected, live, title) {
     if (model.state.audioElement) model.state.audioElement.pause();
     model.toggleAudio();
   } else if (!model.state.playing) {
-    playerView.stopPlayBtn();
+    PlayerView.stopPlayBtn();
   }
 
   CassetteView.giveCassetteSelector(el);
@@ -83,7 +82,7 @@ const controlListItems = function (curItem) {
 
   PlayerView.updateTitle(model.state.curTabe.name);
   model.toggleAudio();
-  model.state.playing ? playerView.startPlayBtn() : playerView.stopPlayBtn();
+  model.state.playing ? PlayerView.startPlayBtn() : PlayerView.stopPlayBtn();
 };
 
 const init = function () {
