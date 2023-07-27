@@ -1,6 +1,6 @@
 import * as model from "./model.js";
 import { stations, updateDuration } from "./stations.js";
-import PlayerView from "./Views/PlayerView.js";
+import PlayerView from "./Views/playerView.js";
 import CassetteView from "./Views/cassetteView.js";
 import ListView from "./Views/listView.js";
 
