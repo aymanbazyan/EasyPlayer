@@ -84,15 +84,31 @@
                 </h1>
                 <i class="list__header-arrow fa-solid fa-caret-down"></i>
             </div>
-            <ul class="list__audios list__bookmarks list-hidden">
-                </li>
-            </ul>
+            <ul class="list__audios list__bookmarks list-hidden"></ul>
         </div>
     </div>
 
     <!-- Cassettes container -->
     <ul class="cassettes"></ul>
 
+    <!-- Add audios -->
+    <div class="overlay hidden"></div>
+    <div class="add-audio-window hidden">
+        <button class="btn--close-modal">&times;</button>
+        <form class="add">
+            <input required class="add__input" id="add-name" type="text" placeholder="Audio name">
+            <input required class="add__input" id="add-url" type="text" placeholder="Audio URL">
+            <a class="add__example" href="https://archive.org/details/audio?tab=collection" target="_blank">
+                Good place to get audios URLs
+            </a>
+            <h2 class="add__note">
+                Note: if the audio duration didin't appear, try to refresh, AND DO NOT GIVE THE SAME NAME FOR 2 AUDIOS
+                :D
+            </h2>
+            <button class="add__submit" type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
 </body>
 
 </html>

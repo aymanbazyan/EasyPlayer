@@ -34,11 +34,15 @@ class ListView extends View {
   }
 
   _generateMarkup() {
+    const items = this._parentEl.querySelectorAll(".list__audios-item");
+    items.forEach((item) => item.remove());
+
     return this._data.map(this._generateMarkupPreview).join("");
   }
 
   updateBookmarksList(bookmarks) {
-    this._bookmarksList.innerHTML = "";
+    const items = this._bookmarksList.querySelectorAll(".list__audios-item");
+    items.forEach((item) => item.remove());
 
     bookmarks.map((bookmark) => {
       const markup = this._generateMarkupPreview(bookmark);
@@ -56,6 +60,15 @@ class ListView extends View {
     } PlayPauseIcon"></i>
   </li>
    `;
+  }
+
+  addAudioBtn() {
+    this._parentEl.innerHTML = "";
+    const btns = `
+    <button class="add-new-audio">Add new audio</button>
+    <button class="clear-audios">Clear audios</button>
+    `;
+    this._parentEl.insertAdjacentHTML("afterbegin", btns);
   }
 
   updateListItemsSelector() {

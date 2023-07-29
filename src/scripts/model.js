@@ -76,16 +76,11 @@ export const deleteBookmark = function (name) {
   if (name === state.curAudio.name) state.curAudio.bookmarked = false;
 };
 
-export const saveLocal = function (item) {
-  localStorage.setItem(item, JSON.stringify(state.bookmarks));
+export const saveLocal = function (itemName, items) {
+  localStorage.setItem(itemName, JSON.stringify(items));
 };
 
-export const getLocal = function (item) {
-  const data = JSON.parse(localStorage.getItem(item));
-  if (data) {
-    data.forEach((audio) => {
-      state.bookmarks.push(audio);
-    });
-    return data;
-  }
+export const getLocal = function (itemName, itemPlace) {
+  const data = JSON.parse(localStorage.getItem(itemName));
+  if (data) data.map((audio) => itemPlace.push(audio));
 };

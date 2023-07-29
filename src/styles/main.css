@@ -29,6 +29,11 @@ button {
   border: none;
 }
 
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 @media only screen and (max-width: 23.75em) {
   html {
     font-size: 50%;
@@ -485,4 +490,93 @@ button {
   height: 0;
   visibility: hidden;
   opacity: 0;
+}
+
+.add {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.add__input {
+  font-size: 1.8rem;
+  margin: 4rem 4rem 0 4rem;
+  border: 1px #000 solid;
+}
+.add__example {
+  color: inherit;
+  font-size: 2rem;
+}
+.add__submit {
+  font-size: 2rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #68e426;
+  margin: 2rem auto;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.add__submit, .add__input {
+  padding: 1rem;
+}
+.add__submit:focus, .add__input:focus {
+  outline: 1px #2383d7 solid;
+}
+.add__note {
+  padding: 1rem;
+  line-height: 1.3;
+}
+
+.add-audio-window {
+  width: 30%;
+  max-height: 70rem;
+  max-width: 80rem;
+  min-height: 30rem;
+  min-width: 35rem;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn--close-modal {
+  font-family: 2rem;
+  color: inherit;
+  position: absolute;
+  top: 0.5rem;
+  right: 1.6rem;
+  font-size: 3.5rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.add-new-audio {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.clear-audios {
+  color: rgb(255, 0, 0);
+}
+
+.add-new-audio,
+.clear-audios {
+  cursor: pointer;
 }
