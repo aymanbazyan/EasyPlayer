@@ -3,6 +3,8 @@ import { stations, updateDuration } from "./stations.js";
 import PlayerView from "./Views/playerView.js";
 import CassetteView from "./Views/cassetteView.js";
 import ListView from "./Views/listView.js";
+import AddAudioView from "./Views/addAudioView.js";
+import listView from "./Views/listView.js";
 
 const controlTogglePlaying = function () {
   if (!model.state.curAudio) return;
@@ -31,7 +33,7 @@ const controlAddToBookmarks = function () {
   ListView.updateBookmarksList(model.state.bookmarks);
 
   // 4) Save bookmarks to local storage
-  model.saveLocal("bookmarks");
+  model.saveLocal("bookmarks", model.state.bookmarks);
 };
 
 const controlStartCassette = function (el, selected, title) {
@@ -45,10 +47,18 @@ const controlStartCassette = function (el, selected, title) {
   PlayerView.updateTitle(model.state.curTabe.name);
   ListView.updateTitle(model.state.curTabe.name);
 
-  // 3) Render the audios list
+  // 3) If the cassette was the local storage, add handlers to the add audio btn
+  if (model.state.curTabe.name === "Local Storage") {
+    listView.addAudioBtn();
+    AddAudioView.addAudioHnadler();
+    AddAudioView.formSubmitHandler(addAudioControl);
+    AddAudioView.clearSavedAudios(deleteAudiosControl);
+  } else AddAudioView.deleteAddAudioBtns();
+
+  // 4) Render the audios list
   ListView.render(model.state.curTabe.audios);
 
-  // 4) If the cassette is not selected, open the audios list, if it's selected, toggle the list
+  // 5) If the cassette is not selected, open the audios list, if it's selected, toggle the list
   if (!selected) ListView.openList();
   else ListView.toggleList();
 };
@@ -99,8 +109,23 @@ const controlListItems = async function (curItem) {
   }
 };
 
+const local = stations.find((station) => station.name == "Local Storage");
+const addAudioControl = function (data) {
+  local.audios.push(data);
+  ListView.render(model.state.curTabe.audios);
+  model.saveLocal("localAudio", local.audios);
+};
+
+const deleteAudiosControl = function () {
+  local.audios = [];
+  model.saveLocal("localAudio", local.audios);
+  ListView.render(model.state.curTabe.audios);
+  ListView.toggleList();
+};
+
 const init = function () {
-  model.getLocal("bookmarks");
+  model.getLocal("localAudio", local.audios);
+  model.getLocal("bookmarks", model.state.bookmarks);
   updateDuration();
   ListView.updateBookmarksList(model.state.bookmarks);
   ListView.listHeaderHandler(controlList);

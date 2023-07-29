@@ -2,6 +2,11 @@
 
 export const stations = [
   {
+    name: "Local Storage",
+    img: "../content/stations/local.jpg",
+    audios: [],
+  },
+  {
     name: "Aymen alrabadi",
     img: "https://avatars.githubusercontent.com/u/103147442?v=4",
     audios: [
