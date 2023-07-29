@@ -33,9 +33,19 @@ class PlayerView extends View {
     });
   }
 
-  toogleAddToBookmark() {
+  toggleAddToBookmarkBtn() {
     this._addToBookmark.classList.toggle("fa-regular");
     this._addToBookmark.classList.toggle("fa-solid");
+  }
+
+  fillAddToBookmarkBtn() {
+    this._addToBookmark.classList.remove("fa-regular");
+    this._addToBookmark.classList.add("fa-solid");
+  }
+
+  emptyAddToBookmarkBtn() {
+    this._addToBookmark.classList.add("fa-regular");
+    this._addToBookmark.classList.remove("fa-solid");
   }
 
   addToBookmarksHandler(handler) {
