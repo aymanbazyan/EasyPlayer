@@ -4,6 +4,7 @@ class ListView extends View {
   _lists = document.querySelectorAll(".list");
   _listHeaders = document.querySelectorAll(".list__header");
   _parentEl = document.querySelector(".list__audios");
+  _bookmarksList = document.querySelector(".list__bookmarks");
   _tabeHeader = document.querySelector(".tabe-header");
   _radioTitle = document.querySelector(".tabe-title");
   _listItems;
@@ -36,6 +37,15 @@ class ListView extends View {
     return this._data.map(this._generateMarkupPreview).join("");
   }
 
+  updateBookmarksList(bookmarks) {
+    this._bookmarksList.innerHTML = "";
+
+    bookmarks.map((bookmark) => {
+      const markup = this._generateMarkupPreview(bookmark);
+      this._bookmarksList.insertAdjacentHTML("beforeend", markup);
+    });
+  }
+
   _generateMarkupPreview(data) {
     return `
     <li class="list__audios-item" id="${data.name}">
@@ -53,7 +63,7 @@ class ListView extends View {
   }
 
   updatePlayPauseIcon(curItem) {
-    this._listItems.forEach((item) => {
+    this._listItems?.forEach((item) => {
       item.querySelector(".PlayPauseIcon").classList.add("fa-play");
       item.querySelector(".PlayPauseIcon").classList.remove("fa-pause");
     });

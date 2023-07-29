@@ -25,9 +25,9 @@ class CassetteView extends View {
         selected = false;
 
         if (cassetteEl.classList.contains("cassette-selected")) selected = true;
-        if (cassetteMec.classList.contains("live")) live = true;
+        // if (cassetteMec.classList.contains("live")) live = true;
 
-        handler(cassetteEl, selected, live, title);
+        handler(cassetteEl, selected, title);
       });
     });
   }
