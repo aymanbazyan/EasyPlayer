@@ -27,7 +27,7 @@ class AddAudioView extends View {
     }
   }
 
-  clearSavedAudios(handler) {
+  clearSavedAudiosHandler(handler) {
     this._updateAddAudioBtnsSelector();
 
     this._clearAudiosBtn.addEventListener("click", handler);
@@ -57,13 +57,16 @@ class AddAudioView extends View {
       const data = {
         name: this._addName.value,
         link: this._addURL.value,
+        local: true,
       };
 
-      this._addName.value = "";
-      this._addURL.value = "";
       this._toggleAddAudioHidden();
 
+      if (!data.name || !data.link) return;
+
       handler(data);
+      this._addName.value = "";
+      this._addURL.value = "";
     });
   }
 }
