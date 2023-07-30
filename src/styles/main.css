@@ -174,7 +174,7 @@ button {
 .radio__inner_2 .middle__video-length p {
   font-size: 1.4rem;
 }
-.radio__inner_2 .middle #progress {
+.radio__inner_2 .middle #volume-slider {
   -moz-appearance: none;
        appearance: none;
   -webkit-appearance: none;
@@ -183,7 +183,7 @@ button {
   background-color: rgb(169, 201, 222);
   border-radius: 20px;
 }
-.radio__inner_2 .middle #progress::-webkit-slider-thumb, .radio__inner_2 .middle #progress::-moz-range-thumb {
+.radio__inner_2 .middle #volume-slider::-webkit-slider-thumb, .radio__inner_2 .middle #volume-slider::-moz-range-thumb {
   -webkit-appearance: none;
   border: none;
   outline: none;

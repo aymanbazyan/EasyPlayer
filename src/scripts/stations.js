@@ -1,9 +1,7 @@
-// import { formatTime } from "./model.js";
-
 export const stations = [
   {
     name: "Local Storage",
-    img: "../content/stations/local.jpg",
+    img: "https://cdn-icons-png.flaticon.com/512/2879/2879141.png",
     audios: [],
   },
   {

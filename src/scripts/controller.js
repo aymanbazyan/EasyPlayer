@@ -4,7 +4,8 @@ import PlayerView from "./Views/playerView.js";
 import CassetteView from "./Views/cassetteView.js";
 import ListView from "./Views/listView.js";
 import AddAudioView from "./Views/addAudioView.js";
-import listView from "./Views/listView.js";
+import VolumeView from "./Views/volumeView.js";
+import volumeView from "./Views/volumeView.js";
 
 const controlTogglePlaying = function () {
   if (!model.state.curAudio) return;
@@ -49,7 +50,7 @@ const controlStartCassette = function (el, selected, title) {
 
   // 3) If the cassette was the local storage, add handlers to the add audio btn
   if (model.state.curTabe.name === "Local Storage") {
-    listView.addAudioBtn();
+    ListView.addAudioBtn();
     AddAudioView.addAudioHnadler();
     AddAudioView.formSubmitHandler(addAudioControl);
     AddAudioView.clearSavedAudiosHandler(deleteAudiosControl);
@@ -118,12 +119,16 @@ const addAudioControl = function (data) {
 
 const deleteAudiosControl = function () {
   local.audios = [];
+  model.state.bookmarks = model.state.bookmarks.filter((book) => !book.local);
   ListView.render(model.state.curTabe.audios);
   ListView.toggleList();
-  model.state.bookmarks = model.state.bookmarks.filter((book) => !book.local);
   ListView.updateBookmarksList(model.state.bookmarks);
   model.saveLocal("localAudio", local.audios);
   model.saveLocal("bookmarks", model.state.bookmarks);
+};
+
+const changeVolumeControl = function (volumeValue) {
+  if (model.state.audioElement) model.state.audioElement.volume = volumeValue;
 };
 
 const init = function () {
@@ -137,6 +142,7 @@ const init = function () {
   CassetteView.startCassetteHandler(controlStartCassette);
   PlayerView.playBtnHandler(controlTogglePlaying);
   PlayerView.addToBookmarksHandler(controlAddToBookmarks);
+  volumeView.changeVolumeHandler(changeVolumeControl);
 };
 
 document.addEventListener("DOMContentLoaded", init);
