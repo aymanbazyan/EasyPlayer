@@ -52,7 +52,7 @@ const controlStartCassette = function (el, selected, title) {
     listView.addAudioBtn();
     AddAudioView.addAudioHnadler();
     AddAudioView.formSubmitHandler(addAudioControl);
-    AddAudioView.clearSavedAudios(deleteAudiosControl);
+    AddAudioView.clearSavedAudiosHandler(deleteAudiosControl);
   } else AddAudioView.deleteAddAudioBtns();
 
   // 4) Render the audios list
@@ -118,9 +118,12 @@ const addAudioControl = function (data) {
 
 const deleteAudiosControl = function () {
   local.audios = [];
-  model.saveLocal("localAudio", local.audios);
   ListView.render(model.state.curTabe.audios);
   ListView.toggleList();
+  model.state.bookmarks = model.state.bookmarks.filter((book) => !book.local);
+  ListView.updateBookmarksList(model.state.bookmarks);
+  model.saveLocal("localAudio", local.audios);
+  model.saveLocal("bookmarks", model.state.bookmarks);
 };
 
 const init = function () {
