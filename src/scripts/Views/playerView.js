@@ -6,6 +6,9 @@ class PlayerView extends View {
   _addToBookmark = document.querySelector(".radio__bookmark-btn");
   _playerTitle = document.querySelector(".radio__inner_1-header-title");
   _duration = document.querySelector(".middle__duration");
+  _moveBtns = document.querySelector(".radio__inner_1-buttons");
+  _forward = document.querySelector(".forward");
+  _backward = document.querySelector(".backward");
 
   startPlayBtn() {
     this._playpauseBtn.classList.remove("fa-play");
@@ -71,6 +74,16 @@ class PlayerView extends View {
      <p>${currentProgress}</p>
      `;
     this._duration.innerHTML = markup;
+  }
+
+  forwardBackwardHandler(handler) {
+    this._moveBtns.addEventListener("click", (e) => {
+      const backward = e.target.closest(".backward");
+      const forward = e.target.closest(".forward");
+      if (!backward && !forward) return;
+
+      handler(forward, backward);
+    });
   }
 }
 

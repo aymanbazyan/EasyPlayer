@@ -52,7 +52,7 @@ class ListView extends View {
 
   _generateMarkupPreview(data) {
     return `
-    <li class="list__audios-item" id="${data.name}">
+    <li class="list__audios-item" title="${data.name}">
     ${data.name} -
     ${data.duration}
     <i class="fa-solid fa-${
@@ -73,16 +73,27 @@ class ListView extends View {
 
   updateListItemsSelector() {
     this._listItems = document.querySelectorAll(".list__audios-item");
+    return this._listItems;
   }
 
   updatePlayPauseIcon(curItem) {
+    const arr = [];
     this._listItems?.forEach((item) => {
       item.querySelector(".PlayPauseIcon").classList.add("fa-play");
       item.querySelector(".PlayPauseIcon").classList.remove("fa-pause");
+
+      if (item.title === curItem.title) {
+        arr.push(item);
+      }
     });
 
     curItem.querySelector(".PlayPauseIcon").classList.remove("fa-play");
     curItem.querySelector(".PlayPauseIcon").classList.add("fa-pause");
+
+    arr.forEach((item) => {
+      item.querySelector(".PlayPauseIcon").classList.remove("fa-play");
+      item.querySelector(".PlayPauseIcon").classList.add("fa-pause");
+    });
   }
 
   listItemsHandler(handler) {

@@ -1,12 +1,10 @@
 import * as model from "./model.js";
 import { stations, updateDuration } from "./stations.js";
-import PlayerView from "./Views/playerView.js";
+import PlayerView from "./Views/PlayerView.js";
 import CassetteView from "./Views/cassetteView.js";
 import ListView from "./Views/listView.js";
 import AddAudioView from "./Views/addAudioView.js";
 import VolumeView from "./Views/volumeView.js";
-import volumeView from "./Views/volumeView.js";
-import playerView from "./Views/playerView.js";
 
 const controlTogglePlaying = function () {
   if (!model.state.curAudio) return;
@@ -69,6 +67,23 @@ const controlList = function (hdr) {
   ListView.toggleList(hdr);
 };
 
+const watchDurationChange = function () {
+  model.state.audioElement.addEventListener("timeupdate", () => {
+    const curTime = model.timeFormat(
+      Math.trunc(model.state.audioElement.currentTime)
+    );
+    PlayerView.updateDuration(model.state.curAudio.duration, curTime);
+  });
+};
+
+const toggleBookmarkIcon = function () {
+  model.state.bookmarks.find(
+    (audio) => audio.name === model.state.curAudio?.name
+  )
+    ? PlayerView.fillAddToBookmarkBtn()
+    : PlayerView.emptyAddToBookmarkBtn();
+};
+
 const controlListItems = async function (curItem) {
   try {
     // 0) Update items selectors
@@ -82,24 +97,20 @@ const controlListItems = async function (curItem) {
 
     // 3) Set curTabe
     model.state.curTabe = stations.find((station) =>
-      station.audios.some((audio) => audio.name === curItem.id)
+      station.audios.some((audio) => audio.name === curItem.title)
     );
 
     // 4) Set curAudio
     model.state.curAudio = model.state.curTabe.audios.find(
-      (audio) => audio.name === curItem.id
+      (audio) => audio.name === curItem.title
     );
 
     // 5) Toggle play/pause icon + change the player title
     ListView.updatePlayPauseIcon(curItem);
     PlayerView.updateTitle(model.state.curTabe.name);
 
-    // 6) If the curAudio is in the bookmarks list, fill the bookmark icon
-    model.state.bookmarks.find(
-      (audio) => audio.name === model.state.curAudio?.name
-    )
-      ? PlayerView.fillAddToBookmarkBtn()
-      : PlayerView.emptyAddToBookmarkBtn();
+    // 6) Update bookmark icon
+    toggleBookmarkIcon();
 
     // 7) Toggle audio
     await model.toggleAudio();
@@ -108,12 +119,7 @@ const controlListItems = async function (curItem) {
     model.state.playing ? PlayerView.startPlayBtn() : PlayerView.stopPlayBtn();
 
     // 9) Display audio duration in the radio
-    model.state.audioElement.addEventListener("timeupdate", () => {
-      const curTime = model.timeFormat(
-        Math.trunc(model.state.audioElement.currentTime)
-      );
-      playerView.updateDuration(model.state.curAudio.duration, curTime);
-    });
+    watchDurationChange();
   } catch (err) {
     console.log(err);
   }
@@ -140,6 +146,47 @@ const changeVolumeControl = function (volumeValue) {
   if (model.state.audioElement) model.state.audioElement.volume = volumeValue;
 };
 
+const controlForwardBackward = function (forward, backward) {
+  // 0) No curAudio or there's only 1 audio in the curTabe? return
+  if (!model.state.curAudio || model.state.curTabe.audios.length - 1 === 0)
+    return;
+
+  // 1) Get curAudio index in curTabe audios
+  let curIndex = model.state.curTabe.audios.findIndex(
+    (aud) => aud === model.state.curAudio
+  );
+
+  // 2) If forward/backward button is clicked, change curIndex
+  if (forward) {
+    curIndex++;
+    if (curIndex > model.state.curTabe.audios.length - 1) curIndex = 0;
+  } else if (backward) {
+    curIndex--;
+    if (curIndex < 0) curIndex = model.state.curTabe.audios.length - 1;
+  }
+  // 3) Update curAudio
+  model.state.curAudio = model.state.curTabe.audios[curIndex];
+
+  // 4) Start playing new curAudio
+  model.toggleAudio();
+
+  // 5) Update audio duration
+  watchDurationChange();
+
+  // 6) Update bookmark icon
+  toggleBookmarkIcon();
+
+  // 7) Update play/pause icon in the lists
+  const listItems = ListView.updateListItemsSelector();
+  listItems.forEach((item) => {
+    if (item.title === model.state.curAudio.name)
+      model.state.curListItem = item;
+  });
+  console.log(model.state.curListItem);
+
+  ListView.updatePlayPauseIcon(model.state.curListItem);
+};
+
 const init = function () {
   model.getLocal("localAudio", local.audios);
   model.getLocal("bookmarks", model.state.bookmarks);
@@ -151,7 +198,9 @@ const init = function () {
   CassetteView.startCassetteHandler(controlStartCassette);
   PlayerView.playBtnHandler(controlTogglePlaying);
   PlayerView.addToBookmarksHandler(controlAddToBookmarks);
-  volumeView.changeVolumeHandler(changeVolumeControl);
+  PlayerView.forwardBackwardHandler(controlForwardBackward);
+  VolumeView.changeVolumeHandler(changeVolumeControl);
+  console.log("EasyPlayer 1 - 0 Musicator3000");
 };
 
 document.addEventListener("DOMContentLoaded", init);
