@@ -84,3 +84,11 @@ export const getLocal = function (itemName, itemPlace) {
   const data = JSON.parse(localStorage.getItem(itemName));
   if (data) data.map((audio) => itemPlace.push(audio));
 };
+
+export const timeFormat = function (duration) {
+  const minutes = Math.floor(duration / 60);
+  const remainderSeconds = Math.floor(duration % 60);
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(remainderSeconds).padStart(2, "0");
+  return `${formattedMinutes}:${formattedSeconds}`;
+};

@@ -1,3 +1,5 @@
+import { timeFormat } from "./model.js";
+
 export const stations = [
   {
     name: "Local Storage",
@@ -57,11 +59,7 @@ export const updateDuration = function () {
 
       audioElement.addEventListener("loadedmetadata", () => {
         const duration = audioElement.duration;
-        const minutes = Math.floor(duration / 60);
-        const remainderSeconds = Math.floor(duration % 60);
-        const formattedMinutes = String(minutes).padStart(2, "0");
-        const formattedSeconds = String(remainderSeconds).padStart(2, "0");
-        const formattedTime = `${formattedMinutes}:${formattedSeconds}`;
+        const formattedTime = timeFormat(duration);
         Object.assign(audio, { duration: formattedTime });
       });
     });

@@ -5,6 +5,7 @@ class PlayerView extends View {
   _spinners = document.querySelectorAll(".spinner");
   _addToBookmark = document.querySelector(".radio__bookmark-btn");
   _playerTitle = document.querySelector(".radio__inner_1-header-title");
+  _duration = document.querySelector(".middle__duration");
 
   startPlayBtn() {
     this._playpauseBtn.classList.remove("fa-play");
@@ -62,6 +63,14 @@ class PlayerView extends View {
 
   updateTitle(title) {
     this._playerTitle.innerHTML = title;
+  }
+
+  updateDuration(duration, currentProgress) {
+    const markup = `
+     <p>${duration}/</p>
+     <p>${currentProgress}</p>
+     `;
+    this._duration.innerHTML = markup;
   }
 }
 

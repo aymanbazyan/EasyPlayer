@@ -6,6 +6,7 @@ import ListView from "./Views/listView.js";
 import AddAudioView from "./Views/addAudioView.js";
 import VolumeView from "./Views/volumeView.js";
 import volumeView from "./Views/volumeView.js";
+import playerView from "./Views/playerView.js";
 
 const controlTogglePlaying = function () {
   if (!model.state.curAudio) return;
@@ -103,8 +104,16 @@ const controlListItems = async function (curItem) {
     // 7) Toggle audio
     await model.toggleAudio();
 
-    // 8) If the audio is playing, toggle play btn in the player
+    // 8) If the audio is playing, toggle play btn in the radio
     model.state.playing ? PlayerView.startPlayBtn() : PlayerView.stopPlayBtn();
+
+    // 9) Display audio duration in the radio
+    model.state.audioElement.addEventListener("timeupdate", () => {
+      const curTime = model.timeFormat(
+        Math.trunc(model.state.audioElement.currentTime)
+      );
+      playerView.updateDuration(model.state.curAudio.duration, curTime);
+    });
   } catch (err) {
     console.log(err);
   }

@@ -168,10 +168,10 @@ button {
   display: grid;
   justify-items: center;
 }
-.radio__inner_2 .middle__video-length {
+.radio__inner_2 .middle__duration {
   display: flex;
 }
-.radio__inner_2 .middle__video-length p {
+.radio__inner_2 .middle__duration p {
   font-size: 1.4rem;
 }
 .radio__inner_2 .middle #volume-slider {
